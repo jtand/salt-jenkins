@@ -1,0 +1,45 @@
+{# Variables #}
+{% set py_ver = grains.get('pythonversion', '')[:2] %}
+{% set os = grains.get('os', '') %}
+{% set osrelease = grains.get('osrelease', '') %}
+{% set os_family = grains.get('os_family', '') %}
+{% set os_major_release = grains.get('osmajorrelease', '') %}
+
+{# Python versions #}
+{% set python_26 = True if py_ver < [2, 7] %}
+{% set python_27 = True if py_ver > [2, 6] and py_ver < [3, 0] %}
+
+{# Platforms #}
+{# RHEL #}
+{% set rhel = True if os in ['RedHat', 'CentOS'] %}
+{% set rhel_5 = True if rhel and os_major_release == '5' else False %}
+{% set rhel_6 = True if rhel and os_major_release == '6' else False %}
+{% set rhel_7 = True if rhel and os_major_release == '7' else False %}
+{# Fedora #}
+{% set fedora = True if os == 'Fedora' %}
+{% set fedora_21 = True if fedora and os_major_release == '21' else False %}
+{% set fedora_22 = True if fedora and os_major_release == '22' else False %}
+{# Debian #}
+{% set debian = True if os == 'Debian' %}
+{% set debian_7 = True if debian and osrelease.startswith('7') else False %}
+{% set debian_8 = True if debian and osrelease.startswith('8') else False %}
+{# Ubuntu #}
+{% set ubuntu = True if os == 'Ubuntu' %}
+{% set ubuntu_12 = True if ubuntu and osrelease.startswith('12.') else False %}
+{% set ubuntu_14 = True if ubuntu and osrelease.startswith('14.') else False %}
+{% set ubuntu_15 = True if ubuntu and osrelease.startswith('15.') else False %}
+{# OpenSUSE #}
+{% set opensuse = True if os == 'openSUSE' else False %}
+{# Arch #}
+{% set arch = True if os == 'Arch' else False %}
+
+{# Pillar data #}
+{% set test_git_url =  pillar.get('test_git_url', 'https://github.com/saltstack/salt.git') %}
+
+{% set test_transport = pillar.get('test_transport', 'zeromq') %}
+{% set zeromq = True if test_transport == 'zeromq' %}
+{% set raet = True if test_transport == 'raet' %}
+{% set tcp = True if test_transport == 'tcp' %}
+
+{% set test_git_commit = pillar.get('test_git_commit', 'develop') %}
+
