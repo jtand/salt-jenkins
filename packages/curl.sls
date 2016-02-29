@@ -1,24 +1,21 @@
-{%- if grains['os'] == 'Gentoo' %}
-  {% set curl = 'net-misc/curl' %}
-{% else %}
-  {% set curl = 'curl' %}
-{%- endif %}
+{% from 'setup/map.jinja' import curl with context %}
+{% import params.jinja as params %}
 
-{%- if grains['os'] == 'openSUSE' %}
+{%- if params.opensuse %}
 include:
-  - ca-certificates-mozilla
+  - packages.ca-certificates-mozilla
 {%- endif %}
 
 curl:
-  pkg.installed:
-    - name: {{ curl }}
-    {%- if grains['os'] == 'openSUSE' %}
+  {{ curl.install_method }}:
+    - name: {{ curl.name }}
+    {%- if params.opensuse %}
     - require:
-      - pkg: ca-certificates-mozilla
+      - {{ curl.requires }}
     {%- endif %}
 
 
-{% if grains['os_family'] == 'RedHat' and grains['osmajorrelease'][0] == '5' %}
+{% if params.rhel_5 %}
 openssl:
   pkg.latest
 
@@ -26,9 +23,4 @@ update-openssl:
   cmd:
     - run
     - name: yum update -y --enablerepo=epel openssl
-{% endif %}
-
-{% if grains['os'] == 'Arch' %}
-openssl:
-  pkg.latest
 {% endif %}

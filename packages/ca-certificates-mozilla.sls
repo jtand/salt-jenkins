@@ -1,2 +1,5 @@
+{% from "setup/map.jinja" import ca-certificates-mozilla with context %}
+
 ca-certificates-mozilla:
-  pkg.latest
+  {{ ca-certificates-mozilla.install_method }}:
+    - name: {{ ca-certificates-mozilla.name }}
