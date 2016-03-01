@@ -35,6 +35,8 @@
 {% set arch = True if os == 'Arch' else False %}
 {# Gentoo #}
 {% set gentoo = True if os == 'Gentoo' else False %}
+{# OS X #}
+{% set osx = True if os == 'MacOS' else False %}
 
 {# Pillar data #}
 {% set test_git_url =  pillar.get('test_git_url', 'https://github.com/saltstack/salt.git') %}

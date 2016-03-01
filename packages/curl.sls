@@ -1,10 +1,31 @@
 {% from 'setup/map.jinja' import curl with context %}
+
+{{ curl.includes }}
+
+install_curl:
+  {{ curl.install_method }}:
+    - {{ curl.name }}
+    - {{ curl.requires }}
+
+
+
+
+
+
+
+
+
+
+
+
+{#
 {% import params.jinja as params %}
 
 {%- if params.opensuse %}
 include:
   - packages.ca-certificates-mozilla
 {%- endif %}
+
 
 curl:
   {{ curl.install_method }}:
@@ -13,7 +34,6 @@ curl:
     - require:
       - {{ curl.requires }}
     {%- endif %}
-
 
 {% if params.rhel_5 %}
 openssl:
@@ -24,3 +44,4 @@ update-openssl:
     - run
     - name: yum update -y --enablerepo=epel openssl
 {% endif %}
+#}

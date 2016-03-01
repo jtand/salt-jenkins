@@ -3,7 +3,7 @@
 
 include:
   {# on OSX, these utils are available from the system rather than the pkg manager (brew) #}
-  {% if grains.get('os', '') != 'MacOS' %}
+  {% if not params.osx %}
   - git
   - patch
   - sed
