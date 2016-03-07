@@ -6,9 +6,9 @@
 {% set os_major_release = grains.get('osmajorrelease', '') %}
 
 {# Python versions #}
-{% set python_3 = True if py_ver >= [3, 0] %}
-{% set python_26 = True if py_ver < [2, 7] %}
-{% set python_27 = True if py_ver > [2, 6] and py_ver < python_3 %}
+{% set python_3 = True if py_ver >= [3, 0] else False %}
+{% set python_26 = True if py_ver < [2, 7] else False %}
+{% set python_27 = True if py_ver > [2, 6] and py_ver < python_3 else False %}
 
 {# Platforms #}
 {# RHEL #}
@@ -42,9 +42,9 @@
 {% set test_git_url =  pillar.get('test_git_url', 'https://github.com/saltstack/salt.git') %}
 
 {% set test_transport = pillar.get('test_transport', 'zeromq') %}
-{% set zeromq = True if test_transport == 'zeromq' %}
-{% set raet = True if test_transport == 'raet' %}
-{% set tcp = True if test_transport == 'tcp' %}
+{% set zeromq = True if test_transport == 'zeromq' else False %}
+{% set raet = True if test_transport == 'raet' else False %}
+{% set tcp = True if test_transport == 'tcp' else False %}
 
 {% set test_git_commit = pillar.get('test_git_commit', 'develop') %}
 

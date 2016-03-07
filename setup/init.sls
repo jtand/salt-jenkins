@@ -1,29 +1,29 @@
-{% import params.jinja as params %}
+{% import 'setup/params.jinja' as params with context %}
 include:
   {% if params.arch %}
-  - platforms.arch
+  - setup.platform.arch
   {% elif params.rhel_5 %}
-  - platforms.rhel_5
+  - setup.platform.rhel5
   {% elif params.rhel_6 %}
-  - platforms.rhel_6
+  - setup.platform.rhel6
   {% elif params.rhel_7 %}
-  - platforms.rhel_7
+  - setup.platform.rhel7
   {% elif params.debian %}
-  - platforms.debian
+  - setup.platform.debian
   {% elif params.fedora_21 %}
-  - platforms.fedora21
+  - setup.platform.fedora21
   {% elif params.fedora_22 %}
-  - platforms.fedora22
+  - setup.platform.fedora22
   {% elif params.opensuse %}
-  - platforms.opensuse
+  - setup.platform.opensuse
   {% elif params.ubuntu_12 %}
-  - platforms.ubuntu12
+  - setup.platform.ubuntu12
   {% elif params.ubuntu_14 %}
-  - platforms.ubuntu14
+  - setup.platform.ubuntu14
   {% elif params.ubuntu_15 %}
-  - platforms.ubuntu15
+  - setup.platform.ubuntu15
   {% endif %}
   {#- If raet is the transport, install raet depends as well. #}
   {% if params.raet %}
-  - transport.raet
+  - setup.transport.raet
   {% endif %}
