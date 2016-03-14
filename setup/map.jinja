@@ -1,12 +1,12 @@
 {# Map file to allow for platform agnostic state files #}
 {# --------------------------------------------------- #}
 {# ca-certificates-mozilla map #}
-{% set ca-certificates-mozilla = salt['grains.filter_by']({
+{% set ca_certificates_mozilla = salt['grains.filter_by']({
     'default': {
         'name': 'ca-certificates-mozilla',
         'version': '',
-        'requires': {},
-        'includes': {},
+        'requires': '',
+        'includes': '',
         'install_method': 'pkg.latest'
         }
     },
@@ -18,8 +18,8 @@
     'default': {
         'name': {'name': 'curl'},
         'version': '',
-        'requires': {},
-        'includes': {},
+        'requires': '',
+        'includes': '',
         'install_method': 'pkg.installed'
         },
     'rhel_5': {
@@ -32,8 +32,8 @@
     'arch': {
         'name': {'name': 'openssl'},
         'version': '',
-        'requires': {},
-        'includes': {},
+        'requires': '',
+        'includes': '',
         'install_method': 'pkg.latest'
         },
     'opensuse': {
@@ -42,12 +42,12 @@
         'requires': {'require': [{'pkg': 'ca-certificates-mozilla'}]},
         'includes': {'include': ['ca-certificates-mozilla']},
         'install_method': 'pkg.installed'
-        }
+        },
     'gentoo': {
         'name': {'name': 'net-misc/curl'},
         'version': '',
-        'requires': {},
-        'includes': {},
+        'requires': '',
+        'includes': '',
         'install_method': 'pkg.installed'
         }
     },
