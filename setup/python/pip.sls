@@ -30,9 +30,9 @@
 
 
 include:
-  - packages.curl
+  - setup.packages.curl
   {% if on_redhat_5 %}
-  - python26
+  - setup.packages.python26
   {% endif %}
   {%- if on_debian_7 %}
   - setup.python.headers
