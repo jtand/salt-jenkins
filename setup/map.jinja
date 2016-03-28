@@ -16,35 +16,35 @@
 {# curl map #}
 {% set curl = salt['grains.filter_by']({
     'default': {
-        'name': {'name': 'curl'},
+        'name': 'curl',
         'version': '',
         'requires': '',
         'includes': '',
         'install_method': 'pkg.installed'
         },
     'rhel_5': {
-        'name': {'name': 'curl'},
+        'name': 'curl',
         'version': '',
         'requires': {'require': {'pkg': 'openssl'}},
         'includes': {'include': ['openssl']},
         'install_method': 'pkg.installed'
         },
     'arch': {
-        'name': {'name': 'openssl'},
+        'name': 'openssl',
         'version': '',
         'requires': '',
         'includes': '',
         'install_method': 'pkg.latest'
         },
     'opensuse': {
-        'name': {'name': 'curl'},
+        'name': 'curl',
         'version': '',
         'requires': {'require': [{'pkg': 'ca-certificates-mozilla'}]},
         'includes': {'include': ['ca-certificates-mozilla']},
         'install_method': 'pkg.installed'
         },
     'gentoo': {
-        'name': {'name': 'net-misc/curl'},
+        'name': 'net-misc/curl',
         'version': '',
         'requires': '',
         'includes': '',
@@ -53,6 +53,42 @@
     },
     merge=salt['pillar.get']('curl:lookup'), default='default')
 %}
+
+{# npm map #}
+
+{% set npm = salt['grains.filter_by']({
+    'default': {
+        'name': 'npm',
+        'version': '',
+        'requires': '',
+        'includes': '',
+        'install_method': 'pkg.installed'
+        },
+    'opensuse': {
+        'name': 'nodejs',
+        'version': '',
+        'requires': '',
+        'includes': '',
+        'install_method': 'pkg.installed'
+        },
+    'freebsd': {
+        'name': 'www/npm',
+        'version': '',
+        'requires': '',
+        'includes': '',
+        'install_method': 'pkg.installed'
+        },
+    'macos': {
+        'name': 'node',
+        'version': '',
+        'requires': '',
+        'includes': '',
+        'install_method': 'pkg.installed'
+        }
+    },
+    merge=salt['pillar.get']('curl:lookup'), default='default')
+%}
+
 
 
 
