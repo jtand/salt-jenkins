@@ -1,3 +1,16 @@
+{% from 'setup/map.jinja' import pip with context %}
+
+{{ pip.includes }}
+
+install_curl:
+  {{ pip.install_method }}:
+    - name: {{ pip.name }}
+    - cwd: /
+    - reload_modules: True
+    - {{ pip.requires }}
+
+
+{#
 {% set distro = salt['grains.get']('oscodename', '')  %}
 {% set os_family = salt['grains.get']('os_family', '') %}
 {% set os_major_release = salt['grains.get']('osmajorrelease', '') %}
@@ -57,3 +70,4 @@ pip-install:
       {% if on_debian_7 %}
       - pkg: python-dev
       {% endif %}
+#}
