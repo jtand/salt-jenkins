@@ -1,10 +1,11 @@
-include:
-  - setup.python.pip
+{% from 'setup/map.jinja' import bottle with context %}
 
-bottle:
-  pip.installed:
+{{ bottle.includes }}
+
+install-bottle:
+  {{ bottle.install_method }}
     {%- if salt['config.get']('virtualenv_path', None)  %}
     - bin_env: {{ salt['config.get']('virtualenv_path') }}
     {%- endif %}
-    - require:
-      - cmd: pip-install
+    {{ bottle.index_urls }}
+    {{ bottle.requires }}

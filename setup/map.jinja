@@ -94,28 +94,28 @@
 {# pip map #}
 {% set pip = salt['grains.filter_by']({
     'default': {
-        'name': 'curl -L "https://bootstrap.pypa.io/get-pip.py" -o get-pip.py && python get_pip.py',
+        'name': 'curl -L "https://bootstrap.pypa.io/get-pip.py" -o get-pip.py && python get_pip.py -U pip<8.1.2',
         'version': '',
         'requires': {'require': [{'pkg': 'curl'}]},
         'includes': {'include': ['setup.packages.curl']},
         'install_method': 'cmd.run'
         },
     'arch': {
-        'name': 'wget "https://bootstrap.pypa.io/get-pip.py" && python2 get_pip.py',
+        'name': 'wget "https://bootstrap.pypa.io/get-pip.py" && python2 get_pip.py -U pip<8.1.2',
         'version': '',
         'requires': {'require': [{'pkg': 'curl'}]},
         'includes': {'include': ['setup.packages.curl']},
         'install_method': 'cmd.run'
         },
     'debian_7': {
-        'name': 'curl -L "https://bootstrap.pypa.io/get-pip.py" -o get-pip.py && python get_pip.py',
+        'name': 'curl -L "https://bootstrap.pypa.io/get-pip.py" -o get-pip.py && python get_pip.py -U pip<8.1.2',
         'version': '',
         'requires': {'require': [{'pkg': ['curl', 'python-dev']}]},
         'includes': {'include': ['setup.packages.curl', 'setup.python.headers']},
         'install_method': 'cmd.run'
         },
     'rhel_5': {
-        'name': 'curl -L "https://bootstrap.pypa.io/get-pip.py" -o get-pip.py && python26 get_pip.py',
+        'name': 'curl -L "https://bootstrap.pypa.io/get-pip.py" -o get-pip.py && python26 get_pip.py -U pip<8.1.2',
         'version': '',
         'requires': {'require': [{'pkg': ['curl', 'python26']}]},
         'includes': {'include': ['setup.packages.curl', 'setup.packages.python26']},
@@ -130,7 +130,7 @@
     'default': {
         'name': 'argparse',
         'version': '',
-        'requires': {'require': {'cmd': ['pip']}},
+        'requires': {'require': {'cmd': ['pip-install']}},
         'includes': {'include': ['setup.python.pip']},
         'install_method': 'pip.installed',
         'index_urls': [{'index_url': ['https://pypi-jenkins.saltstack.com/jenkins/develop']}, {'extra_index_url': ['https://pypi.python.org/simple']}]
@@ -139,8 +139,70 @@
     merge=salt['pillar.get']('curl:lookup'), default='default')
 %}
 
+{# boto map #}
+{% set boto = salt['grains.filter_by']({
+    'default': {
+        'name': ['boto>=2.33.0'],
+        'requires': {'require': [{'cmd': ['pip-install']}},
+        'includes': {'include': ['setup.python.pip']},
+        'install_method': 'pip.installed',
+        'index_urls': [{'index_url': ['https://pypi-jenkins.saltstack.com/jenkins/develop']}, {'extra_index_url': ['https://pypi.python.org/simple']}]
+        }
+    },
+    merge=salt['pillar.get']('curl:lookup'), default='default')
+%}
 
+{# boto3 map #}
+{% set boto3 = salt['grains.filter_by']({
+    'default': {
+        'name': ['boto3'],
+        'requires': {'require': [{'cmd': ['pip-install']}},
+        'includes': {'include': ['setup.python.pip']},
+        'install_method': 'pip.installed',
+        'index_urls': [{'index_url': ['https://pypi-jenkins.saltstack.com/jenkins/develop']}, {'extra_index_url': ['https://pypi.python.org/simple']}]
+        }
+    },
+    merge=salt['pillar.get']('curl:lookup'), default='default')
+%}
 
+{# bottle map #}
+{% set bottle = salt['grains.filter_by']({
+    'default': {
+        'name': ['bottle'],
+        'requires': {'require': [{'cmd': ['pip-install']}},
+        'includes': {'include': ['setup.python.pip']},
+        'install_method': 'pip.installed',
+        'index_urls': [{'index_url': ['https://pypi-jenkins.saltstack.com/jenkins/develop']}, {'extra_index_url': ['https://pypi.python.org/simple']}]
+        }
+    },
+    merge=salt['pillar.get']('curl:lookup'), default='default')
+%}
+
+{# cherrypy map #}
+{% set cherrypy = salt['grains.filter_by']({
+    'default': {
+        'name': ['cherrypy'],
+        'requires': {'require': [{'cmd': ['pip-install']}},
+        'includes': {'include': ['setup.python.pip']},
+        'install_method': 'pip.installed',
+        'index_urls': [{'index_url': ['https://pypi-jenkins.saltstack.com/jenkins/develop']}, {'extra_index_url': ['https://pypi.python.org/simple']}]
+        }
+    },
+    merge=salt['pillar.get']('curl:lookup'), default='default')
+%}
+
+{# coverage map #}
+{% set coverage = salt['grains.filter_by']({
+    'default': {
+        'name': ['coverage==3.7.1'],
+        'requires': {'require': [{'cmd': ['pip-install']}},
+        'includes': {'include': ['setup.python.pip']},
+        'install_method': 'pip.installed',
+        'index_urls': [{'index_url': ['https://pypi-jenkins.saltstack.com/jenkins/develop']}, {'extra_index_url': ['https://pypi.python.org/simple']}]
+        }
+    },
+    merge=salt['pillar.get']('curl:lookup'), default='default')
+%}
 
 
 

@@ -1,3 +1,12 @@
+{% from 'setup/map.jinja' import coverage with conext %}
+
+{{ coverage.includes }}
+
+install-coverage:
+  {{ coverage.install_method }}
+    {{ coverage.name }}
+    {{ coverage.index_urls }}
+    {{ coverage.requires }}
 include:
   - setup.python.pip
 
