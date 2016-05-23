@@ -6,13 +6,13 @@
 {% set template = salt['grains.filter_by']({
     'default': {
         'name': '',
-        'version: '',
-        requires: '',
-        includes: '',
-        install_method: ''
+        'version': '',
+        'requires': '',
+        'includes': '',
+        'install_method': ''
         }
     },
-    default='default')
+    merge=salt['pillar.get']('curl:lookup'), default='default')
 %}
 #}
 {# ca-certificates-mozilla map #}
@@ -25,7 +25,7 @@
         'install_method': 'pkg.latest'
         }
     },
-    default='default')
+    merge=salt['pillar.get']('curl:lookup'), default='default')
 %}
 
 {# curl map #}
