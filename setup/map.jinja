@@ -1,5 +1,20 @@
 {# Map file to allow for platform agnostic state files #}
 {# --------------------------------------------------- #}
+
+{#
+{# Template map #}
+{% set template = salt['grains.filter_by']({
+    'default': {
+        'name': '',
+        'version: '',
+        requires: '',
+        includes: '',
+        install_method: ''
+        }
+    },
+    default='default')
+%}
+#}
 {# ca-certificates-mozilla map #}
 {% set ca_certificates_mozilla = salt['grains.filter_by']({
     'default': {
@@ -88,9 +103,56 @@
     merge=salt['pillar.get']('curl:lookup'), default='default')
 %}
 
+{# Docker map #}
+{% set docker = salt['grains.filter_by']({
+    'default': {
+        'name': 'docker',
+        'version': '',
+        'requires': '',
+        'includes': '',
+        'install_method': 'pkg.installed'
+        }
+    },
+    merge=salt['pillar.get']('curl:lookup'), default='default')
+%}
+
+{# Python-gnupg map #}
+{% set template = salt['grains.filter_by']({
+    'default': {
+        'name': '',
+        'version': '',
+        'requires': '',
+        'includes': '',
+        'install_method': ''
+        }
+    'fedora': {
+        'name': 'python-gnupg',
+        'version': '',
+        'requires': '',
+        'includes': '',
+        'install_method': 'pkg.remove'
+        }
+    },
+    merge=salt['pillar.get']('curl:lookup'), default='default')
+%}
 
 
 {##### Python dependencies ####}
+{#
+{# template python map #}
+{% set template = salt['grains.filter_by']({
+    'default': {
+        'name': ''
+        'requires': {'require': [{'cmd': ['pip-install']}]},
+        'includes': {'include': ['setup.python.pip']},
+        'install_method': 'pip.installed',
+        'index_urls': [{'index_url': ['https://pypi-jenkins.saltstack.com/jenkins/develop']}, {'extra_index_url': ['https://pypi.python.org/simple']}]
+        }
+    },
+    merge=salt['pillar.get']('curl:lookup'), default='default')
+%}
+#}
+
 {# pip map #}
 {% set pip = salt['grains.filter_by']({
     'default': {
@@ -169,7 +231,7 @@
 {% set bottle = salt['grains.filter_by']({
     'default': {
         'name': ['bottle'],
-        'requires': {'require': [{'cmd': ['pip-install']}},
+        'requires': {'require': [{'cmd': ['pip-install']}]},
         'includes': {'include': ['setup.python.pip']},
         'install_method': 'pip.installed',
         'index_urls': [{'index_url': ['https://pypi-jenkins.saltstack.com/jenkins/develop']}, {'extra_index_url': ['https://pypi.python.org/simple']}]
@@ -182,7 +244,7 @@
 {% set cherrypy = salt['grains.filter_by']({
     'default': {
         'name': ['cherrypy'],
-        'requires': {'require': [{'cmd': ['pip-install']}},
+        'requires': {'require': [{'cmd': ['pip-install']}]},
         'includes': {'include': ['setup.python.pip']},
         'install_method': 'pip.installed',
         'index_urls': [{'index_url': ['https://pypi-jenkins.saltstack.com/jenkins/develop']}, {'extra_index_url': ['https://pypi.python.org/simple']}]
@@ -195,7 +257,7 @@
 {% set coverage = salt['grains.filter_by']({
     'default': {
         'name': ['coverage==3.7.1'],
-        'requires': {'require': [{'cmd': ['pip-install']}},
+        'requires': {'require': [{'cmd': ['pip-install']}]},
         'includes': {'include': ['setup.python.pip']},
         'install_method': 'pip.installed',
         'index_urls': [{'index_url': ['https://pypi-jenkins.saltstack.com/jenkins/develop']}, {'extra_index_url': ['https://pypi.python.org/simple']}]
@@ -204,6 +266,89 @@
     merge=salt['pillar.get']('curl:lookup'), default='default')
 %}
 
+{# dnspython map #}
+{% set dnspython = salt['grains.filter_by']({
+    'default': {
+        'name': ['dnspython'],
+        'requires': {'require': [{'cmd': ['pip-install']}]},
+        'includes': {'include': ['setup.python.pip']},
+        'install_method': 'pip.installed',
+        'index_urls': [{'index_url': ['https://pypi-jenkins.saltstack.com/jenkins/develop']}, {'extra_index_url': ['https://pypi.python.org/simple']}]
+        }
+    },
+    merge=salt['pillar.get']('curl:lookup'), default='default')
+%}
 
+{# docker-py map #}
+{% set docker_py = salt['grains.filter_by']({
+    'default': {
+        'name': ['docker-py']
+        'requires': {'require': [{'cmd': ['pip-install']}]},
+        'includes': {'include': ['setup.python.pip']},
+        'install_method': 'pip.installed',
+        'index_urls': [{'index_url': ['https://pypi-jenkins.saltstack.com/jenkins/develop']}, {'extra_index_url': ['https://pypi.python.org/simple']}]
+        }
+    },
+    merge=salt['pillar.get']('curl:lookup'), default='default')
+%}
+
+{# etcd map #}
+{% set etcd = salt['grains.filter_by']({
+    'default': {
+        'name': ['python-etcd==0.4.2']
+        'requires': {'require': [{'cmd': ['pip-install']}]},
+        'includes': {'include': ['setup.python.pip']},
+        'install_method': 'pip.installed',
+        'index_urls': [{'index_url': ['https://pypi-jenkins.saltstack.com/jenkins/develop']}, {'extra_index_url': ['https://pypi.python.org/simple']}]
+        }
+    },
+    merge=salt['pillar.get']('curl:lookup'), default='default')
+%}
+
+{# futures map #}
+{% set futures = salt['grains.filter_by']({
+    'default': {
+        'name': ['futures']
+        'requires': {'require': [{'cmd': ['pip-install']}]},
+        'includes': {'include': ['setup.python.pip']},
+        'install_method': 'pip.installed',
+        'index_urls': [{'index_url': ['https://pypi-jenkins.saltstack.com/jenkins/develop']}, {'extra_index_url': ['https://pypi.python.org/simple']}]
+        }
+    },
+    merge=salt['pillar.get']('curl:lookup'), default='default')
+%}
+
+{# gitpython map #}
+{% set gitpythong = salt['grains.filter_by']({
+    'default': {
+        'name': ['gitpython']
+        'requires': {'require': [{'cmd': ['pip-install']}]},
+        'includes': {'include': ['setup.python.pip']},
+        'install_method': 'pip.installed',
+        'index_urls': [{'index_url': ['https://pypi-jenkins.saltstack.com/jenkins/develop']}, {'extra_index_url': ['https://pypi.python.org/simple']}]
+        }
+    },
+    merge=salt['pillar.get']('curl:lookup'), default='default')
+%}
+
+{# gnupg map #}
+{% set gnupgg = salt['grains.filter_by']({
+    'default': {
+        'name': ['python-gnupg']
+        'requires': {'require': [{'cmd': ['pip-install']}]},
+        'includes': {'include': ['setup.python.pip']},
+        'install_method': 'pip.installed',
+        'index_urls': [{'index_url': ['https://pypi-jenkins.saltstack.com/jenkins/develop']}, {'extra_index_url': ['https://pypi.python.org/simple']}]
+        }
+    'fedora': {
+        'name': ['python-gnupg']
+        'requires': {'require': [{'cmd': ['pip-install']}, {'pkg': ['remove-python-gnupg']}]},
+        'includes': {'include': ['setup.python.pip']},
+        'install_method': 'pip.installed',
+        'index_urls': [{'index_url': ['https://pypi-jenkins.saltstack.com/jenkins/develop']}, {'extra_index_url': ['https://pypi.python.org/simple']}]
+        }
+    },
+    merge=salt['pillar.get']('curl:lookup'), default='default')
+%}
 
 

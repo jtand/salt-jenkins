@@ -34,7 +34,6 @@ include:
   - python.jsonschema
   - python.rfc3987
   - python.strict_rfc3339
-  - python.docker
   {#- TODO: Figure out where to put one off cases like futures #}
   {% import 'setup/params.jinja' as params %}
   {% if not params.python_3 %}

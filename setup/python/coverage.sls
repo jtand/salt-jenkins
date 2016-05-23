@@ -7,6 +7,8 @@ install-coverage:
     {{ coverage.name }}
     {{ coverage.index_urls }}
     {{ coverage.requires }}
+
+{#
 include:
   - setup.python.pip
 
@@ -20,3 +22,4 @@ coverage:
     - extra_index_url: https://pypi.python.org/simple
     - require:
       - cmd: pip-install
+#}

@@ -1,17 +1,17 @@
-{%- if grains['os'] == 'CentOS' and grains['osrelease']|int == 7 %}
-include:
-  - setup.python.pip
+{% from 'setup/map.jinja' import docker with context %}
+{% from 'setup/map.jinja' import docker_py with context %}
 
-docker:
-  pkg.installed
+{{ docker_py.includes }}
 
-docker-py:
-  pip.installed:
+install-docker:
+  {{ docker.install_method }}
+    - name: {{ docker.name }}
+
+install-docker-py:
+  {{ docker_py.install_method }}
+    - name: {{ docker_py.name }}
     {%- if salt['config.get']('virtualenv_path', None)  %}
     - bin_env: {{ salt['config.get']('virtualenv_path') }}
     {%- endif %}
-    - index_url: https://pypi-jenkins.saltstack.com/jenkins/develop
-    - extra_index_url: https://pypi.python.org/simple
-    - require:
-      - cmd: pip-install
-{%- endif %}
+    {{ docker_py.index_urls }}
+    {{ docker_py.requires }}
