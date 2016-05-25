@@ -12,7 +12,7 @@
         'install_method': ''
         }
     },
-    merge=salt['pillar.get']('curl:lookup'), default='default')
+    merge=salt['pillar.get']('template:lookup'), default='default')
 %}
 #}
 {# ca-certificates-mozilla map #}
@@ -25,7 +25,7 @@
         'install_method': 'pkg.latest'
         }
     },
-    merge=salt['pillar.get']('curl:lookup'), default='default')
+    merge=salt['pillar.get']('ca_certificates_mozilla:lookup'), default='default')
 %}
 
 {# curl map #}
@@ -100,7 +100,7 @@
         'install_method': 'pkg.installed'
         }
     },
-    merge=salt['pillar.get']('curl:lookup'), default='default')
+    merge=salt['pillar.get']('npm:lookup'), default='default')
 %}
 
 {# Docker map #}
@@ -113,11 +113,11 @@
         'install_method': 'pkg.installed'
         }
     },
-    merge=salt['pillar.get']('curl:lookup'), default='default')
+    merge=salt['pillar.get']('docker:lookup'), default='default')
 %}
 
 {# Python-gnupg map #}
-{% set template = salt['grains.filter_by']({
+{% set python_gnupg = salt['grains.filter_by']({
     'default': {
         'name': '',
         'version': '',
@@ -133,11 +133,12 @@
         'install_method': 'pkg.remove'
         }
     },
-    merge=salt['pillar.get']('curl:lookup'), default='default')
+    merge=salt['pillar.get']('python_gnupg:lookup'), default='default')
 %}
 
-
 {##### Python dependencies ####}
+{# -------------------------- #}
+
 {#
 {# template python map #}
 {% set template = salt['grains.filter_by']({
@@ -224,7 +225,7 @@
         'index_urls': [{'index_url': ['https://pypi-jenkins.saltstack.com/jenkins/develop']}, {'extra_index_url': ['https://pypi.python.org/simple']}]
         }
     },
-    merge=salt['pillar.get']('curl:lookup'), default='default')
+    merge=salt['pillar.get']('boto3:lookup'), default='default')
 %}
 
 {# bottle map #}
@@ -237,7 +238,7 @@
         'index_urls': [{'index_url': ['https://pypi-jenkins.saltstack.com/jenkins/develop']}, {'extra_index_url': ['https://pypi.python.org/simple']}]
         }
     },
-    merge=salt['pillar.get']('curl:lookup'), default='default')
+    merge=salt['pillar.get']('bottle:lookup'), default='default')
 %}
 
 {# cherrypy map #}
@@ -250,7 +251,7 @@
         'index_urls': [{'index_url': ['https://pypi-jenkins.saltstack.com/jenkins/develop']}, {'extra_index_url': ['https://pypi.python.org/simple']}]
         }
     },
-    merge=salt['pillar.get']('curl:lookup'), default='default')
+    merge=salt['pillar.get']('cherrypy:lookup'), default='default')
 %}
 
 {# coverage map #}
@@ -263,7 +264,7 @@
         'index_urls': [{'index_url': ['https://pypi-jenkins.saltstack.com/jenkins/develop']}, {'extra_index_url': ['https://pypi.python.org/simple']}]
         }
     },
-    merge=salt['pillar.get']('curl:lookup'), default='default')
+    merge=salt['pillar.get']('coverage:lookup'), default='default')
 %}
 
 {# dnspython map #}
@@ -276,7 +277,7 @@
         'index_urls': [{'index_url': ['https://pypi-jenkins.saltstack.com/jenkins/develop']}, {'extra_index_url': ['https://pypi.python.org/simple']}]
         }
     },
-    merge=salt['pillar.get']('curl:lookup'), default='default')
+    merge=salt['pillar.get']('dnspython:lookup'), default='default')
 %}
 
 {# docker-py map #}
@@ -289,7 +290,7 @@
         'index_urls': [{'index_url': ['https://pypi-jenkins.saltstack.com/jenkins/develop']}, {'extra_index_url': ['https://pypi.python.org/simple']}]
         }
     },
-    merge=salt['pillar.get']('curl:lookup'), default='default')
+    merge=salt['pillar.get']('docker_py:lookup'), default='default')
 %}
 
 {# etcd map #}
@@ -302,7 +303,7 @@
         'index_urls': [{'index_url': ['https://pypi-jenkins.saltstack.com/jenkins/develop']}, {'extra_index_url': ['https://pypi.python.org/simple']}]
         }
     },
-    merge=salt['pillar.get']('curl:lookup'), default='default')
+    merge=salt['pillar.get']('etcd:lookup'), default='default')
 %}
 
 {# futures map #}
@@ -315,11 +316,11 @@
         'index_urls': [{'index_url': ['https://pypi-jenkins.saltstack.com/jenkins/develop']}, {'extra_index_url': ['https://pypi.python.org/simple']}]
         }
     },
-    merge=salt['pillar.get']('curl:lookup'), default='default')
+    merge=salt['pillar.get']('futures:lookup'), default='default')
 %}
 
 {# gitpython map #}
-{% set gitpythong = salt['grains.filter_by']({
+{% set gitpython = salt['grains.filter_by']({
     'default': {
         'name': ['gitpython']
         'requires': {'require': [{'cmd': ['pip-install']}]},
@@ -328,7 +329,7 @@
         'index_urls': [{'index_url': ['https://pypi-jenkins.saltstack.com/jenkins/develop']}, {'extra_index_url': ['https://pypi.python.org/simple']}]
         }
     },
-    merge=salt['pillar.get']('curl:lookup'), default='default')
+    merge=salt['pillar.get']('gitpython:lookup'), default='default')
 %}
 
 {# gnupg map #}
@@ -348,7 +349,84 @@
         'index_urls': [{'index_url': ['https://pypi-jenkins.saltstack.com/jenkins/develop']}, {'extra_index_url': ['https://pypi.python.org/simple']}]
         }
     },
-    merge=salt['pillar.get']('curl:lookup'), default='default')
+    merge=salt['pillar.get']('gnupg:lookup'), default='default')
 %}
+
+{# hgtools map #}
+{% set hgtools = salt['grains.filter_by']({
+    'default': {
+        'name': ['hgtools'],
+        'requires': {'require': [{'cmd': ['pip-install']}]},
+        'includes': {'include': ['setup.python.pip']},
+        'install_method': 'pip.installed',
+        'index_urls': [{'index_url': ['https://pypi-jenkins.saltstack.com/jenkins/develop']}, {'extra_index_url': ['https://pypi.python.org/simple']}]
+        }
+    },
+    merge=salt['pillar.get']('hgtools:lookup'), default='default')
+%}
+
+{# ioflo map #}
+{% set ioflo = salt['grains.filter_by']({
+    'default': {
+        'name': ['ioflo'],
+        'requires': {'require': [{'cmd': ['pip-install']}]},
+        'includes': {'include': ['setup.python.pip']},
+        'install_method': 'pip.installed',
+        'index_urls': [{'index_url': ['https://pypi-jenkins.saltstack.com/jenkins/develop']}, {'extra_index_url': ['https://pypi.python.org/simple']}]
+        }
+    },
+    merge=salt['pillar.get']('ioflo:lookup'), default='default')
+%}
+
+{# jinja2 map #}
+{% set jinja2 = salt['grains.filter_by']({
+    'default': {
+        'name': ['jinja2'],
+        'requires': {'require': [{'cmd': ['pip-install'], 'pkg': ['gcc']}]},
+        'includes': {'include': ['setup.python.pip', 'setup.packages.gcc']},
+        'install_method': 'pip.installed',
+        'index_urls': [{'index_url': ['https://pypi-jenkins.saltstack.com/jenkins/develop']}, {'extra_index_url': ['https://pypi.python.org/simple']}]
+        }
+    },
+    merge=salt['pillar.get']('jinja2:lookup'), default='default')
+%}
+
+{# jsonschema map #}
+{% set jsonschema = salt['grains.filter_by']({
+    'default': {
+        'name': ['jsonschema'],
+        'requires': {'require': [{'cmd': ['pip-install']}]},
+        'includes': {'include': ['setup.python.pip']},
+        'install_method': 'pip.installed',
+        'index_urls': [{'index_url': ['https://pypi-jenkins.saltstack.com/jenkins/develop']}, {'extra_index_url': ['https://pypi.python.org/simple']}]
+        }
+    },
+    merge=salt['pillar.get']('jsonschema:lookup'), default='default')
+%}
+
+{# keyring map #}
+{% set keyring = salt['grains.filter_by']({
+    'default': {
+        'name': ['keyring==5.7.1'],
+        'requires': {'require': [{'cmd': ['pip-install']}]},
+        'includes': {'include': ['setup.python.pip']},
+        'install_method': 'pip.installed',
+        'index_urls': [{'index_url': ['https://pypi-jenkins.saltstack.com/jenkins/develop']}, {'extra_index_url': ['https://pypi.python.org/simple']}]
+        }
+    'suse': {
+        'name': ['keyring==5.7.1'],
+        'requires': {'require': [{'cmd': ['pip-install'], 'pip': ['setuptools-scm']}]},
+        'includes': {'include': ['setup.python.pip']},
+        'install_method': 'pip.installed',
+        'index_urls': [{'index_url': ['https://pypi-jenkins.saltstack.com/jenkins/develop']}, {'extra_index_url': ['https://pypi.python.org/simple']}]
+        }
+    },
+    merge=salt['pillar.get']('keyring:lookup'), default='default')
+%}
+
+
+
+
+
 
 
