@@ -12,20 +12,20 @@
 
 {# Platforms #}
 {# RHEL #}
-{% set rhel = True if os in ['RedHat', 'CentOS'] %}
+{% set rhel = True if os in ['RedHat', 'CentOS'] else False %}
 {% set rhel_5 = True if rhel and os_major_release == '5' else False %}
 {% set rhel_6 = True if rhel and os_major_release == '6' else False %}
 {% set rhel_7 = True if rhel and os_major_release == '7' else False %}
 {# Fedora #}
-{% set fedora = True if os == 'Fedora' %}
+{% set fedora = True if os == 'Fedora' else False %}
 {% set fedora_21 = True if fedora and os_major_release == '21' else False %}
 {% set fedora_22 = True if fedora and os_major_release == '22' else False %}
 {# Debian #}
-{% set debian = True if os == 'Debian' %}
+{% set debian = True if os == 'Debian' else False %}
 {% set debian_7 = True if debian and osrelease.startswith('7') else False %}
 {% set debian_8 = True if debian and osrelease.startswith('8') else False %}
 {# Ubuntu #}
-{% set ubuntu = True if os == 'Ubuntu' %}
+{% set ubuntu = True if os == 'Ubuntu' else False %}
 {% set ubuntu_12 = True if ubuntu and osrelease.startswith('12.') else False %}
 {% set ubuntu_14 = True if ubuntu and osrelease.startswith('14.') else False %}
 {% set ubuntu_15 = True if ubuntu and osrelease.startswith('15.') else False %}
