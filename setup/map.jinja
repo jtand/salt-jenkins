@@ -206,7 +206,7 @@
 {% set boto = salt['grains.filter_by']({
     'default': {
         'name': ['boto>=2.33.0'],
-        'requires': {'require': [{'cmd': ['pip-install']}},
+        'requires': {'require': [{'cmd': ['pip-install']}]},
         'includes': {'include': ['setup.python.pip']},
         'install_method': 'pip.installed',
         'index_urls': [{'index_url': ['https://pypi-jenkins.saltstack.com/jenkins/develop']}, {'extra_index_url': ['https://pypi.python.org/simple']}]
@@ -219,7 +219,7 @@
 {% set boto3 = salt['grains.filter_by']({
     'default': {
         'name': ['boto3'],
-        'requires': {'require': [{'cmd': ['pip-install']}},
+        'requires': {'require': [{'cmd': ['pip-install']}]},
         'includes': {'include': ['setup.python.pip']},
         'install_method': 'pip.installed',
         'index_urls': [{'index_url': ['https://pypi-jenkins.saltstack.com/jenkins/develop']}, {'extra_index_url': ['https://pypi.python.org/simple']}]
