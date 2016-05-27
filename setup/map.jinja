@@ -283,7 +283,7 @@
 {# docker-py map #}
 {% set docker_py = salt['grains.filter_by']({
     'default': {
-        'name': ['docker-py']
+        'name': ['docker-py'],
         'requires': {'require': [{'cmd': ['pip-install']}]},
         'includes': {'include': ['setup.python.pip']},
         'install_method': 'pip.installed',
@@ -296,7 +296,7 @@
 {# etcd map #}
 {% set etcd = salt['grains.filter_by']({
     'default': {
-        'name': ['python-etcd==0.4.2']
+        'name': ['python-etcd==0.4.2'],
         'requires': {'require': [{'cmd': ['pip-install']}]},
         'includes': {'include': ['setup.python.pip']},
         'install_method': 'pip.installed',
@@ -309,7 +309,7 @@
 {# futures map #}
 {% set futures = salt['grains.filter_by']({
     'default': {
-        'name': ['futures']
+        'name': ['futures'],
         'requires': {'require': [{'cmd': ['pip-install']}]},
         'includes': {'include': ['setup.python.pip']},
         'install_method': 'pip.installed',
@@ -322,7 +322,7 @@
 {# gitpython map #}
 {% set gitpython = salt['grains.filter_by']({
     'default': {
-        'name': ['gitpython']
+        'name': ['gitpython'],
         'requires': {'require': [{'cmd': ['pip-install']}]},
         'includes': {'include': ['setup.python.pip']},
         'install_method': 'pip.installed',
@@ -335,14 +335,14 @@
 {# gnupg map #}
 {% set gnupgg = salt['grains.filter_by']({
     'default': {
-        'name': ['python-gnupg']
+        'name': ['python-gnupg'],
         'requires': {'require': [{'cmd': ['pip-install']}]},
         'includes': {'include': ['setup.python.pip']},
         'install_method': 'pip.installed',
         'index_urls': [{'index_url': ['https://pypi-jenkins.saltstack.com/jenkins/develop']}, {'extra_index_url': ['https://pypi.python.org/simple']}]
         },
     'fedora': {
-        'name': ['python-gnupg']
+        'name': ['python-gnupg'],
         'requires': {'require': [{'cmd': ['pip-install']}, {'pkg': ['remove-python-gnupg']}]},
         'includes': {'include': ['setup.python.pip']},
         'install_method': 'pip.installed',
