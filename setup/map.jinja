@@ -143,14 +143,14 @@
 {# template python map #}
 {% set template = salt['grains.filter_by']({
     'default': {
-        'name': ''
+        'name': '',
         'requires': {'require': [{'cmd': ['pip-install']}]},
         'includes': {'include': ['setup.python.pip']},
         'install_method': 'pip.installed',
         'index_urls': [{'index_url': ['https://pypi-jenkins.saltstack.com/jenkins/develop']}, {'extra_index_url': ['https://pypi.python.org/simple']}]
         }
     },
-    merge=salt['pillar.get']('curl:lookup'), default='default')
+    merge=salt['pillar.get']('template:lookup'), default='default')
 %}
 #}
 
