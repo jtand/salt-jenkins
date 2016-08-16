@@ -3,7 +3,7 @@ include:
 
 SaltTesting:
   pip.installed:
-    - name: salttesting==2016.7.22
+    - name: git+https://github.com/saltstack/salt-testing.git#egg=SaltTesting
     {%- if salt['config.get']('virtualenv_path', None)  %}
     - bin_env: {{ salt['config.get']('virtualenv_path') }}
     {%- endif %}
